@@ -1,2 +1,2 @@
-# harvesting-tools
-here I collect scripts for harvesting databases
+# Harvesting-tools
+Here, I collect scripts for harvesting databases.
