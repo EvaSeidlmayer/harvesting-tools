@@ -13,7 +13,6 @@ __version__ = "1 "
 
 
 from SPARQLWrapper import SPARQLWrapper, JSON
-import pandas as pd
 import csv
 
 user_agent = "Eva Seidlmayer, ZB MED Informationszentrum Lebenswissenschaften, seidlmayer@zbmed.de"
@@ -21,26 +20,18 @@ wd_url = SPARQLWrapper("https://query.wikidata.org/sparql", agent=user_agent)
 
 
 def main():
-    #oid_pmid = pd.read_csv('', usecols=['oid', 'pmid'])
-    #oid_pmid.to_dict()
 
     names = ['Bertha Krupp', 'Tilo Wilmowsky', 'Bertha Benz', 'Ferdinand Redtenbacher', 'Werner von Siemens', 'Käthe Pietschker']
-    #names = ['Bertha Krupp']
     with open('results-87.csv', 'w') as csvfile:
         csv_writer = csv.writer(csvfile)
         csv_writer.writerow(['name','QID', 'mother', 'mother-QID', 'father', 'father-QID', 'child', 'child-QID'])
 
-        children = []
         try:
-            #for name in names.values:
              for name in names:
-                #print(name)
                 query_1 = f''' SELECT ?item WHERE {{ ?item rdfs:label '{name}'@en }}'''
-                #print(query_1)
                 wd_url.setQuery(query_1)
                 wd_url.setReturnFormat(JSON)
                 results = wd_url.query().convert()
-                #print(results)
                 if (len(results['results']['bindings'])) > 0:
                     for res in results['results']['bindings']:
                         QID = res['item']['value'].rsplit('/', 1)[1]
@@ -52,11 +43,9 @@ def main():
                                     OPTIONAL {{ ?person wdt:P40 ?child . }}
                                     SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de" }}
                                     }}'''
-                        #print(query_2)
                         wd_url.setQuery(query_2)
                         wd_url.setReturnFormat(JSON)
                         results_2 = wd_url.query().convert()
-                        print(results_2)
                         try:
                             if (len(results_2['results']['bindings'])) > 0:
                                 for res_2 in results_2['results']['bindings']:
