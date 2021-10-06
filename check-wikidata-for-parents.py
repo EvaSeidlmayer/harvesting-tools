@@ -22,7 +22,7 @@ wd_url = SPARQLWrapper("https://query.wikidata.org/sparql", agent=user_agent)
 def main():
 
     names = ['Bertha Krupp', 'Tilo Wilmowsky', 'Bertha Benz', 'Ferdinand Redtenbacher', 'Werner von Siemens', 'Käthe Pietschker']
-    with open('results-87.csv', 'w') as csvfile:
+    with open('results-from-WD.csv', 'w') as csvfile:
         csv_writer = csv.writer(csvfile)
         csv_writer.writerow(['name','QID', 'mother', 'mother-QID', 'father', 'father-QID', 'child', 'child-QID'])
 
